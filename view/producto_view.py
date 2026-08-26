@@ -585,8 +585,7 @@ class ProductoView:
         # ACTUALIZAR STOCK
         # ==================================================
 
-        producto.stock -= 1
-
+        self.controller.descontar_stock(producto.id_producto)
         # ==================================================
         # IDENTIFICAR TIPO DE PERSONA
         # ==================================================

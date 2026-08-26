@@ -98,6 +98,21 @@ class ProductoController:
 
         return True
 
+    # REGLA DE NEGOCIO: descontar stock al vender un producto
+    def descontar_stock(self, id_producto):
+
+        producto = self.buscar_producto(id_producto)
+
+        if producto is None:
+            return False
+
+        if producto.stock <= 0:
+            return False
+
+        producto.stock -= 1
+
+        return True
+
     # Obtener el nombre de la categoría de un producto
     def obtener_nombre_categoria(self, id_categoria):
 
