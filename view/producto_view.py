@@ -9,6 +9,7 @@ import time
 class ProductoView:
 
     def __init__(self, controller, categoria_controller):
+
         self.controller = controller
         self.categoria_controller = categoria_controller
 
@@ -17,13 +18,16 @@ class ProductoView:
     # ==================================================
 
     def esperar(self, segundos=1.5):
+
         time.sleep(segundos)
 
     def cargar(self, mensaje):
+
         print(f"\n{mensaje}...")
         self.esperar(1.5)
 
     def continuar(self):
+
         input("\nPresione ENTER para continuar...")
 
     # ==================================================
@@ -37,7 +41,9 @@ class ProductoView:
         productos = self.controller.listar_productos()
 
         if not productos:
+
             print("\nNo existen productos registrados.")
+
             return False
 
         datos = []
@@ -51,17 +57,29 @@ class ProductoView:
             )
 
             datos.append({
+
                 "ID": producto.id_producto,
+
                 "NOMBRE": producto.nombre,
-                "PRECIO": f"${producto.precio:,.0f}",
-                "STOCK": producto.stock,
-                "CATEGORÍA": nombre_categoria
+
+                "PRECIO":
+                    f"${producto.precio:,.0f}",
+
+                "STOCK":
+                    producto.stock,
+
+                "CATEGORÍA":
+                    nombre_categoria
             })
 
         tabla = pd.DataFrame(datos)
 
         print("\n" + "=" * 90)
-        print("                         PRODUCTOS")
+
+        print(
+            "                         PRODUCTOS"
+        )
+
         print("=" * 90)
 
         print(
@@ -82,7 +100,9 @@ class ProductoView:
 
     def mostrar_categorias_disponibles(self):
 
-        self.cargar("Cargando categorías disponibles")
+        self.cargar(
+            "Cargando categorías disponibles"
+        )
 
         categorias = (
             self.categoria_controller.listar_categorias()
@@ -91,7 +111,10 @@ class ProductoView:
         if not categorias:
 
             print("\nNo existen categorías.")
-            print("Primero debe crear una categoría.")
+
+            print(
+                "Primero debe crear una categoría."
+            )
 
             return False
 
@@ -100,15 +123,25 @@ class ProductoView:
         for categoria in categorias:
 
             datos.append({
-                "ID": categoria.id_categoria,
-                "NOMBRE": categoria.nombre,
-                "DESCRIPCIÓN": categoria.descripcion
+
+                "ID":
+                    categoria.id_categoria,
+
+                "NOMBRE":
+                    categoria.nombre,
+
+                "DESCRIPCIÓN":
+                    categoria.descripcion
             })
 
         tabla = pd.DataFrame(datos)
 
         print("\n" + "=" * 75)
-        print("                    CATEGORÍAS DISPONIBLES")
+
+        print(
+            "                    CATEGORÍAS DISPONIBLES"
+        )
+
         print("=" * 75)
 
         print(
@@ -130,15 +163,22 @@ class ProductoView:
     def agregar_producto(self):
 
         print("\n" + "=" * 60)
-        print("                    AGREGAR PRODUCTO")
+
+        print(
+            "                    AGREGAR PRODUCTO"
+        )
+
         print("=" * 60)
 
         if not self.mostrar_categorias_disponibles():
 
             self.continuar()
+
             return
 
-        nombre = input("\nNombre del producto: ")
+        nombre = input(
+            "\nNombre del producto: "
+        )
 
         if not nombre.strip():
 
@@ -148,20 +188,27 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
         try:
 
             precio = float(
-                input("Precio del producto: ")
+                input(
+                    "Precio del producto: "
+                )
             )
 
             stock = int(
-                input("Stock disponible: ")
+                input(
+                    "Stock disponible: "
+                )
             )
 
             id_categoria = int(
-                input("ID de la categoría: ")
+                input(
+                    "ID de la categoría: "
+                )
             )
 
         except ValueError:
@@ -171,6 +218,7 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
         if precio <= 0:
@@ -180,6 +228,7 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
         if stock < 0:
@@ -189,15 +238,22 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
-        self.cargar("Registrando producto")
+        self.cargar(
+            "Registrando producto"
+        )
 
         producto = (
             self.controller.agregar_producto(
+
                 nombre,
+
                 precio,
+
                 stock,
+
                 id_categoria
             )
         )
@@ -205,8 +261,14 @@ class ProductoView:
         if producto is None:
 
             print("\nERROR:")
-            print("La categoría indicada no existe.")
-            print("El producto no puede ser agregado.")
+
+            print(
+                "La categoría indicada no existe."
+            )
+
+            print(
+                "El producto no puede ser agregado."
+            )
 
         else:
 
@@ -227,17 +289,22 @@ class ProductoView:
 
     def actualizar_producto(self):
 
-        productos_existen = self.mostrar_productos()
+        productos_existen = (
+            self.mostrar_productos()
+        )
 
         if not productos_existen:
 
             self.continuar()
+
             return
 
         try:
 
             id_producto = int(
-                input("\nIngrese el ID del producto: ")
+                input(
+                    "\nIngrese el ID del producto: "
+                )
             )
 
         except ValueError:
@@ -247,6 +314,7 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
         producto = (
@@ -257,17 +325,23 @@ class ProductoView:
 
         if producto is None:
 
-            print("\nEl producto no existe.")
+            print(
+                "\nEl producto no existe."
+            )
 
             self.continuar()
+
             return
 
         if not self.mostrar_categorias_disponibles():
 
             self.continuar()
+
             return
 
-        nombre = input("\nNuevo nombre: ")
+        nombre = input(
+            "\nNuevo nombre: "
+        )
 
         if not nombre.strip():
 
@@ -276,20 +350,27 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
         try:
 
             precio = float(
-                input("Nuevo precio: ")
+                input(
+                    "Nuevo precio: "
+                )
             )
 
             stock = int(
-                input("Nuevo stock: ")
+                input(
+                    "Nuevo stock: "
+                )
             )
 
             id_categoria = int(
-                input("Nuevo ID de categoría: ")
+                input(
+                    "Nuevo ID de categoría: "
+                )
             )
 
         except ValueError:
@@ -299,6 +380,7 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
         if precio <= 0:
@@ -308,6 +390,7 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
         if stock < 0:
@@ -317,16 +400,24 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
-        self.cargar("Actualizando producto")
+        self.cargar(
+            "Actualizando producto"
+        )
 
         resultado = (
             self.controller.actualizar_producto(
+
                 id_producto,
+
                 nombre,
+
                 precio,
+
                 stock,
+
                 id_categoria
             )
         )
@@ -355,11 +446,14 @@ class ProductoView:
 
     def eliminar_producto(self):
 
-        productos_existen = self.mostrar_productos()
+        productos_existen = (
+            self.mostrar_productos()
+        )
 
         if not productos_existen:
 
             self.continuar()
+
             return
 
         try:
@@ -378,9 +472,12 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
-        self.cargar("Eliminando producto")
+        self.cargar(
+            "Eliminando producto"
+        )
 
         resultado = (
             self.controller.eliminar_producto(
@@ -408,11 +505,14 @@ class ProductoView:
 
     def realizar_compra(self):
 
-        productos_existen = self.mostrar_productos()
+        productos_existen = (
+            self.mostrar_productos()
+        )
 
         if not productos_existen:
 
             self.continuar()
+
             return
 
         # ==================================================
@@ -435,6 +535,7 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
 
         producto = (
@@ -445,9 +546,12 @@ class ProductoView:
 
         if producto is None:
 
-            print("\nEl producto no existe.")
+            print(
+                "\nEl producto no existe."
+            )
 
             self.continuar()
+
             return
 
         # ==================================================
@@ -462,6 +566,58 @@ class ProductoView:
             )
 
             self.continuar()
+
+            return
+
+        # ==================================================
+        # CANTIDAD A COMPRAR
+        # ==================================================
+
+        try:
+
+            cantidad = int(
+                input(
+                    "\n¿Cuántas unidades desea comprar? "
+                )
+            )
+
+        except ValueError:
+
+            print(
+                "\nDebe ingresar una cantidad válida."
+            )
+
+            self.continuar()
+
+            return
+
+        if cantidad <= 0:
+
+            print(
+                "\nLa cantidad debe ser mayor que 0."
+            )
+
+            self.continuar()
+
+            return
+
+        # ==================================================
+        # COMPROBAR SI HAY SUFICIENTE STOCK
+        # ==================================================
+
+        if cantidad > producto.stock:
+
+            print(
+                "\nNo hay suficiente stock."
+            )
+
+            print(
+                f"Stock disponible: "
+                f"{producto.stock}"
+            )
+
+            self.continuar()
+
             return
 
         # ==================================================
@@ -469,7 +625,11 @@ class ProductoView:
         # ==================================================
 
         print("\n" + "=" * 60)
-        print("                    TIPO DE PERSONA")
+
+        print(
+            "                    TIPO DE PERSONA"
+        )
+
         print("=" * 60)
 
         print("\n1. Estudiante")
@@ -486,7 +646,6 @@ class ProductoView:
         if tipo == "1":
 
             tipo_persona = "estudiante"
-            nombre_profesor = ""
 
         # ==================================================
         # PROFESOR
@@ -495,60 +654,6 @@ class ProductoView:
         elif tipo == "2":
 
             tipo_persona = "profesor"
-
-            nombre_profesor = input(
-                "\nIngrese el nombre del profesor: "
-            ).strip()
-
-            if not nombre_profesor:
-
-                print(
-                    "\nEl nombre del profesor "
-                    "no puede estar vacío."
-                )
-
-                self.continuar()
-                return
-
-            # ==================================================
-            # CONFIRMAR PROFESOR PAULO TAYPE
-            # ==================================================
-
-            print("\n" + "=" * 60)
-            print("              CONFIRMACIÓN DE PROFESOR")
-            print("=" * 60)
-
-            print(
-                "\n¿Es el profesor Paulo Taype?"
-            )
-
-            print("\n1. Sí")
-            print("2. No")
-
-            confirmacion = input(
-                "\nSeleccione una opción: "
-            )
-
-            if confirmacion == "1":
-
-                # Se establece el nombre exacto
-                # para aplicar el 80%.
-                nombre_profesor = "Paulo Taype"
-
-            elif confirmacion == "2":
-
-                # Se mantiene el nombre ingresado.
-                # Recibirá el 30%.
-                pass
-
-            else:
-
-                print(
-                    "\nOpción inválida."
-                )
-
-                self.continuar()
-                return
 
         # ==================================================
         # OPCIÓN INVÁLIDA
@@ -561,7 +666,16 @@ class ProductoView:
             )
 
             self.continuar()
+
             return
+
+        # ==================================================
+        # CALCULAR SUBTOTAL
+        # ==================================================
+
+        subtotal = (
+            producto.precio * cantidad
+        )
 
         # ==================================================
         # CALCULAR DESCUENTO
@@ -576,47 +690,62 @@ class ProductoView:
             valor_descuento,
             precio_final
         ) = self.controller.calcular_descuento(
-            producto.precio,
-            tipo_persona,
-            nombre_profesor
+
+            subtotal,
+
+            tipo_persona
         )
 
         # ==================================================
-        # ACTUALIZAR STOCK
+        # DESCONTAR STOCK
         # ==================================================
 
-        self.controller.descontar_stock(producto.id_producto)
+        self.controller.descontar_stock(
+            producto.id_producto,
+            cantidad
+        )
+
         # ==================================================
-        # IDENTIFICAR TIPO DE PERSONA
+        # MOSTRAR TIPO DE PERSONA
         # ==================================================
 
         if tipo_persona == "estudiante":
 
             tipo_mostrar = "Estudiante"
 
-        elif (
-            tipo_persona == "profesor"
-            and nombre_profesor.strip().lower()
-            == "paulo taype"
-        ):
-
-            tipo_mostrar = "Profesor Paulo Taype"
-
         else:
 
-            tipo_mostrar = "Otro profesor"
+            tipo_mostrar = "Profesor"
 
         # ==================================================
         # CREAR TABLA DE COMPRA
         # ==================================================
 
         datos = [{
-            "PRODUCTO": producto.nombre,
-            "PRECIO": f"${producto.precio:,.0f}",
-            "TIPO": tipo_mostrar,
-            "DESCUENTO": f"{descuento * 100:.0f}%",
-            "DESC. $": f"${valor_descuento:,.0f}",
-            "TOTAL": f"${precio_final:,.0f}"
+
+            "PRODUCTO":
+                producto.nombre,
+
+            "CANTIDAD":
+                cantidad,
+
+            "PRECIO UNIT.":
+                f"${producto.precio:,.0f}",
+
+            "SUBTOTAL":
+                f"${subtotal:,.0f}",
+
+            "TIPO":
+                tipo_mostrar,
+
+            "DESCUENTO":
+                f"{descuento * 100:.0f}%",
+
+            "DESC. $":
+                f"${valor_descuento:,.0f}",
+
+            "TOTAL":
+                f"${precio_final:,.0f}"
         }]
 
         tabla = pd.DataFrame(datos)
@@ -625,19 +754,23 @@ class ProductoView:
         # MOSTRAR RESUMEN
         # ==================================================
 
-        print("\n" + "=" * 90)
-        print("                    RESUMEN DE COMPRA")
-        print("=" * 90)
+        print("\n" + "=" * 115)
+
+        print(
+            "                         RESUMEN DE COMPRA"
+        )
+
+        print("=" * 115)
 
         print(
             tabla.to_string(
                 index=False,
                 justify="center",
-                col_space=14
+                col_space=12
             )
         )
 
-        print("=" * 90)
+        print("=" * 115)
 
         print(
             "\nCompra realizada correctamente."
@@ -659,14 +792,23 @@ class ProductoView:
         while True:
 
             print("\n" + "=" * 60)
-            print("                    GESTIÓN DE PRODUCTOS")
+
+            print(
+                "                    GESTIÓN DE PRODUCTOS"
+            )
+
             print("=" * 60)
 
             print("\n1. Agregar producto")
+
             print("2. Listar productos")
+
             print("3. Actualizar producto")
+
             print("4. Eliminar producto")
+
             print("5. Realizar compra")
+
             print("6. Volver al menú principal")
 
             opcion = input(
@@ -692,6 +834,7 @@ class ProductoView:
             elif opcion == "2":
 
                 self.mostrar_productos()
+
                 self.continuar()
 
             # ==================================================
