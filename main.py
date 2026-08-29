@@ -1,6 +1,7 @@
 # Janier Torres Riascos - Tema 8 - Tienda de ropa
 
 # MAIN
+
 # Punto de entrada de la aplicación.
 
 import time
@@ -15,8 +16,17 @@ from view.menu_view import MenuView
 
 def main():
 
+    # ==================================================
+    # INICIO DEL PROGRAMA
+    # ==================================================
+
     print("=" * 60)
-    print("                  TIENDA DE ROPA")
+
+    print(
+        " " * 18 +
+        "TIENDA DE ROPA"
+    )
+
     print("=" * 60)
 
     print("\nTienda de ropa iniciando...")
@@ -27,16 +37,30 @@ def main():
 
     time.sleep(5)
 
-    # Crear Controllers
+    # ==================================================
+    # CREAR CONTROLLERS
+    # ==================================================
+
     categoria_controller = CategoriaController()
 
     producto_controller = ProductoController(
         categoria_controller
     )
 
-    # Crear Views
+    # ==================================================
+    # CREAR VIEWS
+    # ==================================================
+
+    # CategoriaView necesita:
+    # 1. CategoriaController
+    # 2. ProductoController
+    #
+    # Esto permite comprobar si una categoría
+    # tiene productos antes de eliminarla.
+
     categoria_view = CategoriaView(
-        categoria_controller
+        categoria_controller,
+        producto_controller
     )
 
     producto_view = ProductoView(
@@ -44,14 +68,26 @@ def main():
         categoria_controller
     )
 
+    # ==================================================
+    # CREAR MENÚ PRINCIPAL
+    # ==================================================
+
     menu_view = MenuView(
         producto_view,
         categoria_view
     )
 
-    # Iniciar programa
+    # ==================================================
+    # INICIAR APLICACIÓN
+    # ==================================================
+
     menu_view.iniciar()
 
 
+# ==================================================
+# EJECUTAR PROGRAMA
+# ==================================================
+
 if __name__ == "__main__":
+
     main()
