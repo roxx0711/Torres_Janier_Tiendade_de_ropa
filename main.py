@@ -1,8 +1,9 @@
-# Janier Torres Riascos - Tema 8 - Tienda de ropa
+"""
+Módulo principal del programa Tienda de Ropa.
 
-# MAIN
-
-# Punto de entrada de la aplicación.
+Inicializa los controllers y views necesarios,
+y lanza el menú principal de la aplicación.
+"""
 
 import time
 
@@ -15,6 +16,7 @@ from view.menu_view import MenuView
 
 
 def main():
+    """Punto de entrada del programa: inicializa componentes y arranca el menú."""
 
     # ==================================================
     # INICIO DEL PROGRAMA
