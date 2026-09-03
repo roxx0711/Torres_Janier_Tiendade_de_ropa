@@ -2,7 +2,7 @@
 # Vista encargada de interactuar con el usuario
 # para gestionar productos mediante consola.
 
-import pandas as pd
+from tabulate import tabulate
 import time
 
 
@@ -72,8 +72,6 @@ class ProductoView:
                     nombre_categoria
             })
 
-        tabla = pd.DataFrame(datos)
-
         print("\n" + "=" * 90)
 
         print(
@@ -83,10 +81,13 @@ class ProductoView:
         print("=" * 90)
 
         print(
-            tabla.to_string(
-                index=False,
-                justify="center",
-                col_space=14
+            tabulate(
+                datos,
+                headers="keys",
+                tablefmt="grid",
+                showindex=False,
+                stralign="center",
+                numalign="center"
             )
         )
 
@@ -134,8 +135,6 @@ class ProductoView:
                     categoria.descripcion
             })
 
-        tabla = pd.DataFrame(datos)
-
         print("\n" + "=" * 75)
 
         print(
@@ -145,10 +144,13 @@ class ProductoView:
         print("=" * 75)
 
         print(
-            tabla.to_string(
-                index=False,
-                justify="center",
-                col_space=18
+            tabulate(
+                datos,
+                headers="keys",
+                tablefmt="grid",
+                showindex=False,
+                stralign="center",
+                numalign="center"
             )
         )
 
@@ -700,10 +702,26 @@ class ProductoView:
         # DESCONTAR STOCK
         # ==================================================
 
-        self.controller.descontar_stock(
-            producto.id_producto,
-            cantidad
+        resultado_stock = (
+            self.controller.descontar_stock(
+                producto.id_producto,
+                cantidad
+            )
         )
+
+        if not resultado_stock:
+
+            print(
+                "\nNo se pudo realizar la compra."
+            )
+
+            print(
+                "No hay suficiente stock disponible."
+            )
+
+            self.continuar()
+
+            return
 
         # ==================================================
         # MOSTRAR TIPO DE PERSONA
@@ -748,8 +766,6 @@ class ProductoView:
                 f"${precio_final:,.0f}"
         }]
 
-        tabla = pd.DataFrame(datos)
-
         # ==================================================
         # MOSTRAR RESUMEN
         # ==================================================
@@ -763,10 +779,13 @@ class ProductoView:
         print("=" * 115)
 
         print(
-            tabla.to_string(
-                index=False,
-                justify="center",
-                col_space=12
+            tabulate(
+                datos,
+                headers="keys",
+                tablefmt="grid",
+                showindex=False,
+                stralign="center",
+                numalign="center"
             )
         )
 

@@ -3,7 +3,7 @@
 # Vista encargada de gestionar las categorías
 # mediante la consola.
 
-import pandas as pd
+from tabulate import tabulate
 import time
 
 
@@ -72,8 +72,6 @@ class CategoriaView:
 
             })
 
-        tabla = pd.DataFrame(datos)
-
         print("\n" + "=" * 70)
 
         print(
@@ -84,10 +82,13 @@ class CategoriaView:
         print("=" * 70)
 
         print(
-            tabla.to_string(
-                index=False,
-                justify="center",
-                col_space=18
+            tabulate(
+                datos,
+                headers="keys",
+                tablefmt="grid",
+                showindex=False,
+                stralign="center",
+                numalign="center"
             )
         )
 
@@ -372,15 +373,16 @@ class CategoriaView:
 
                 })
 
-            tabla = pd.DataFrame(datos)
-
             print("\nProductos asociados:")
 
             print(
-                tabla.to_string(
-                    index=False,
-                    justify="center",
-                    col_space=15
+                tabulate(
+                    datos,
+                    headers="keys",
+                    tablefmt="grid",
+                    showindex=False,
+                    stralign="center",
+                    numalign="center"
                 )
             )
 
