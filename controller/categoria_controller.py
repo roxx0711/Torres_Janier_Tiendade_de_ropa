@@ -11,11 +11,10 @@ class CategoriaController:
 
     def __init__(self):
 
-        # Lista en memoria donde se almacenan
-        # las categorías.
+        
         self.categorias = []
 
-        # Contador para generar IDs automáticamente.
+        
         self.siguiente_id = 1
 
     # ==================================================

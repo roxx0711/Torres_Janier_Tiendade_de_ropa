@@ -17,8 +17,8 @@ class ProductoController:
         # Contador para generar IDs automáticamente.
         self.siguiente_id = 1
 
-        # Controller de categorías para comprobar
-        # que la categoría exista.
+        
+        
         self.categoria_controller = categoria_controller
 
     # ==================================================
